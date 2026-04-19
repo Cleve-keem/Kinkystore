@@ -9,7 +9,7 @@ export default function Header() {
 
   return (
     <header>
-      <div className="bg-black text-white py-1 px-4">
+      <div className="container mx-auto bg-black text-white py-1 px-4">
         <div className="row flex items-center justify-between py-4">
           {/* Logo */}
           <div className="header-logo">
