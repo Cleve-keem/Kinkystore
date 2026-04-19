@@ -39,7 +39,7 @@ export default function Header() {
               <Heart size={24} className="cursor-pointer" />
               <User size={24} className="cursor-pointer" />
               <span className="relative">
-                <span className="absolute -top-2.5 -right-1 bg-black text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                <span className="absolute -top-2.5 -right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
                   0
                 </span>
                 <ShoppingCart size={24} className="cursor-pointer" />
@@ -48,7 +48,7 @@ export default function Header() {
           </div>
         </div>
         <div
-          className={`mobile-search p-4 ${showMobileSearch ? "block" : "hidden"}`}
+          className={`mobile-search p-4 ${showMobileSearch ? "block" : "hidden"} md:hidden`}
         >
           <Searchbar />
         </div>
