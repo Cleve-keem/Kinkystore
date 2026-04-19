@@ -13,12 +13,12 @@ export default function Navbar() {
       <div className="container mx-auto p-4">
         <nav className="w-full">
           {/* Desktop navbar */}
-          <div className="hidden md:grid grid-cols-5 gap-4 py-4 divide-x divide-grey-200">
+          <div className="hidden md:flex items-center py-1">
             {navbarLinks.map((link) => (
               <Link
                 href={link.href}
                 key={link.href}
-                className="hover:text-red-500 cursor-pointer transition-colors"
+                className="hover:text-red-500 cursor-pointer transition-colors px-1 py-2 text-uppercase font-medium"
               >
                 {link.name}
               </Link>
