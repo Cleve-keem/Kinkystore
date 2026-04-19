@@ -1,6 +1,6 @@
 "use client";
 
-import { Menu } from "lucide-react";
+import { Menu, Plus } from "lucide-react";
 import React from "react";
 import Link from "next/link";
 import { navbarLinks } from "../constants/navbar";
@@ -18,7 +18,7 @@ export default function Navbar() {
               <Link
                 href={link.href}
                 key={link.href}
-                className="hover:text-red-500 cursor-pointer transition-colors px-1 py-2 text-uppercase font-medium"
+                className="hover:text-red-500 cursor-pointer transition-colors px-3 py-2 border-x border-gray-100 text-[12px] uppercase last:border-r-0 first:border-l-0 font-medium"
               >
                 {link.name}
               </Link>
@@ -43,67 +43,20 @@ export default function Navbar() {
               }`}
             >
               <div className="overflow-hidden">
-                <ul className="flex flex-col gap-4 py-4">
+                <div className="flex flex-col gap-4 py-5 mt-2 uppercase">
                   {navbarLinks.map((link) => (
-                    <li
+                    <Link
+                      href={link.href}
                       key={link.href}
-                      className="hover:text-red-500 cursor-pointer transition-colors"
+                      className="hover:text-red-500 cursor-pointer transition-colors text-[12px] font-medium flex items-center gap-1"
                     >
-                      {link.name}
-                    </li>
+                      <span className="flex-1">{link.name}</span>
+                      {link.name !== "Home" && (
+                        <Plus strokeWidth={3} size={15} />
+                      )}
+                    </Link>
                   ))}
-                </ul>
-              </div>
-            </div>
-            <div className="hover:text-red-500 cursor-pointer transition-colors">
-              About
-            </div>
-            <div className="hover:text-red-500 cursor-pointer transition-colors">
-              Services
-            </div>
-            <div className="hover:text-red-500 cursor-pointer transition-colors">
-              Contact
-            </div>
-            <div className="hover:text-red-500 cursor-pointer transition-colors">
-              Blog
-            </div>
-          </div>
-
-          <div className="md:hidden">
-            <button
-              className="w-full flex items-center justify-between cursor-pointer "
-              onClick={() => setIsOpen(!isOpen)}
-            >
-              <h3 className="flex-1 text-left">Menu</h3>
-              <Menu size={24} />
-            </button>
-
-            {/* mobile navbar `*/}
-            <div
-              className={`grid transition-all duration-500 ease-in-out ${
-                isOpen
-                  ? "grid-rows-[1fr] opacity-100"
-                  : "grid-rows-[0fr] opacity-0"
-              }`}
-            >
-              <div className="overflow-hidden">
-                <ul className="flex flex-col gap-4 py-4">
-                  <li className="hover:text-red-500 cursor-pointer transition-colors">
-                    Home
-                  </li>
-                  <li className="hover:text-red-500 cursor-pointer transition-colors">
-                    About
-                  </li>
-                  <li className="hover:text-red-500 cursor-pointer transition-colors">
-                    Services
-                  </li>
-                  <li className="hover:text-red-500 cursor-pointer transition-colors">
-                    Contact
-                  </li>
-                  <li className="hover:text-red-500 cursor-pointer transition-colors">
-                    Blog
-                  </li>
-                </ul>
+                </div>
               </div>
             </div>
           </div>
