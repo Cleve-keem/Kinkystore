@@ -6,6 +6,7 @@ export default function Home() {
     <>
       <Header />
       <Navbar />
+      <div className="h-[200vh]"></div>
     </>
   );
 }
