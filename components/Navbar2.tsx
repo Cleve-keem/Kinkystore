@@ -17,13 +17,13 @@ export default function Navbar() {
 
   return (
     <div className="bg-white text-black sticky top-0 z-50 shadow-md">
-      <div className="container mx-auto p-4">
-        <nav className="w-full">
-          <div className="flex items-center justify-between">
+      <div className="container mx-auto p-3">
+        <div className="w-full">
+          <nav className="flex items-center justify-between py-3">
             {/* Logo */}
             <h3 className="flex-1 font-bold text-xl tracking-tighter">Menu</h3>
             {/* Desktop navbar */}
-            <div className="hidden md:flex items-center py-1">
+            <div className="hidden md:flex items-center">
               {navbarLinks.map((link) => (
                 <Link
                   href={link.href}
@@ -41,10 +41,10 @@ export default function Navbar() {
             >
               <Menu size={24} />
             </button>
-          </div>
+          </nav>
 
+          {/* Mobile navbar `*/}
           <div className="md:hidden">
-            {/* Mobile navbar `*/}
             <div
               className={`grid transition-all duration-500 ease-in-out ${
                 isOpen
@@ -52,7 +52,7 @@ export default function Navbar() {
                   : "grid-rows-[0fr] opacity-0"
               }`}
             >
-              <div className="overflow-hidden">
+              <div className="overflow-y-auto max-h-[80vh] scrollbar-hide">
                 <div className="flex flex-col gap-4 py-5 mt-2 uppercase">
                   {navbarLinks.map((link) => (
                     <div key={link.name}>
@@ -80,7 +80,6 @@ export default function Navbar() {
                           </button>
                         )}
                       </div>
-
                       {/* Mobile Nested Menu */}
                       {link.options && (
                         <div
@@ -117,7 +116,7 @@ export default function Navbar() {
               </div>
             </div>
           </div>
-        </nav>
+        </div>
       </div>
     </div>
   );
