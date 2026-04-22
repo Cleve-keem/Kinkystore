@@ -8,8 +8,8 @@ export default function Header() {
   const [showMobileSearch, setShowMobileSearch] = React.useState(false);
 
   return (
-    <header>
-      <div className="container mx-auto bg-black text-white py-1 px-4">
+    <header className="bg-black text-white">
+      <div className="container mx-auto py-1 px-4">
         <div className="row flex items-center justify-between py-4">
           {/* Logo */}
           <div className="header-logo">
