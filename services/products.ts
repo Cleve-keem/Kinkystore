@@ -6,25 +6,37 @@ class ProductServices {
     const safeLimit = Math.min(50, limit);
 
     const skip = (safePage - 1) * safeLimit;
-
-    const [products, totalProducts] = await Promise.all([
-      prisma.product.findMany({
-        orderBy: { createdAt: "desc" },
-        skip,
-        take: safeLimit,
-      }),
-      prisma.product.count(),
-    ]);
-    return {
-      data: products,
-      pagination: {
-        totalProducts,
-        currentPage: safePage,
-        totalPages: Math.ceil(totalProducts / safeLimit),
-        hasNextPage: safePage * safeLimit < totalProducts,
-        hasPrevPage: safePage > 1,
-      },
-    };
+    try {
+      const [products, totalProducts] = await Promise.all([
+        prisma.product.findMany({
+          orderBy: { createdAt: "desc" },
+          skip,
+          take: safeLimit,
+        }),
+        prisma.product.count(),
+      ]);
+      return {
+        data: products,
+        pagination: {
+          totalProducts,
+          currentPage: safePage,
+          totalPages: Math.ceil(totalProducts / safeLimit),
+          hasNextPage: safePage * safeLimit < totalProducts,
+          hasPrevPage: safePage > 1,
+        },
+      };
+    } catch (error) {
+      return {
+        data: [],
+        pagination: {
+          totalProducts: 0,
+          currentPage: safePage,
+          totalPages: 0,
+          hasNextPage: false,
+          hasPrevPage: false,
+        },
+      };
+    }
   }
 
   static async getProductById(id: string) {
