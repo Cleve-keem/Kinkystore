@@ -1,6 +1,5 @@
 import BackButton from "@/components/products/BackButton";
 import ProductServices from "@/services/products";
-import Link from "next/dist/client/link";
 import Image from "next/image";
 
 export default async function ProductDetail({
@@ -11,7 +10,7 @@ export default async function ProductDetail({
   const { slug } = await params;
   const productDetail = await ProductServices.getProductById(slug);
   return (
-    <div>
+    <div className="relative">
       <BackButton />
       <div className="relative w-full aspect-square">
         <Image
