@@ -1,24 +1,6 @@
 import { prisma } from "@/libs/prisma";
 
 class ProductServices {
-  // static getAllProducts = unstable_cache(
-  //   async () => {
-  //     try {
-  //       return await prisma.product.findMany({
-  //         orderBy: { createdAt: "desc" },
-  //       });
-  //     } catch (error: any) {
-  //       console.error("Error fetching products:", error);
-  //       return [];
-  //     }
-  //   },
-  //   ["all-products-key"],
-  //   {
-  //     revalidate: 3600,
-  //     tags: ["products"],
-  //   },
-  // );
-
   static async getAllProducts(page: number = 1, limit: number = 20) {
     const safePage = Math.max(1, page);
     const safeLimit = Math.min(50, limit);
@@ -43,6 +25,13 @@ class ProductServices {
         hasPrevPage: safePage > 1,
       },
     };
+  }
+
+  static async getProductById(id: string) {
+    const product = await prisma.product.findUnique({
+      where: { id },
+    });
+    return product;
   }
 }
 
