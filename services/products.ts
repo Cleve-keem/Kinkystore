@@ -40,6 +40,28 @@ class ProductServices {
 
     return { success: true, product };
   }
+
+  static async getRelatedProducts(category: string, id: number | string) {
+    const { data: relatedProducts, error } = await supabase
+      .from("Product")
+      .select("*")
+      .eq("category", category)
+      .neq("id", id)
+      .limit(10);
+
+    if (error) {
+      return {
+        success: false,
+        relatedProducts: [],
+        error: error.message,
+      };
+    }
+
+    return {
+      success: true,
+      relatedProducts: relatedProducts || [],
+    };
+  }
 }
 
 export default ProductServices;
