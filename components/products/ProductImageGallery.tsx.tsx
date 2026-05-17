@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useRef, useState } from "react";
+import BackButton from "./BackButton";
 
 type Props = {
   images: string[];
@@ -53,7 +54,7 @@ export default function ProductImageGallery({ images, productName }: Props) {
         />
         {/* Mobile Swipe Indicators */}
         <div
-          className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 md:hidden"
+          className="absolute bottom-1 left-1/2 -translate-x-1/2 flex gap-2 md:hidden"
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
@@ -64,6 +65,18 @@ export default function ProductImageGallery({ images, productName }: Props) {
             />
           ))}
         </div>
+        <button
+          onClick={prevSlide}
+          className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black/70"
+        >
+          &lt;
+        </button>
+        <button
+          onClick={nextSlide}
+          className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black/70"
+        >
+          &gt;
+        </button>
       </div>
 
       {/* DESKTOP THUMBNAILS: The mark of a pro UI */}
