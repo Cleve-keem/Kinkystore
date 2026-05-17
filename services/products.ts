@@ -1,49 +1,44 @@
-import { prisma } from "@/libs/prisma";
+import supabase from "@/utils/superbase/supabaseClient";
 
 class ProductServices {
   static async getAllProducts(page: number = 1, limit: number = 20) {
-    const safePage = Math.max(1, page);
-    const safeLimit = Math.min(50, limit);
+    const { data: products, error } = await supabase
+      .from("Product")
+      .select("*")
+      .order("createdAt", { ascending: false })
+      .range((page - 1) * limit, page * limit - 1);
 
-    const skip = (safePage - 1) * safeLimit;
-    try {
-      const [products, totalProducts] = await Promise.all([
-        prisma.product.findMany({
-          orderBy: { createdAt: "desc" },
-          skip,
-          take: safeLimit,
-        }),
-        prisma.product.count(),
-      ]);
+    if (error) {
       return {
-        data: products,
-        pagination: {
-          totalProducts,
-          currentPage: safePage,
-          totalPages: Math.ceil(totalProducts / safeLimit),
-          hasNextPage: safePage * safeLimit < totalProducts,
-          hasPrevPage: safePage > 1,
-        },
-      };
-    } catch (error) {
-      return {
-        data: [],
-        pagination: {
-          totalProducts: 0,
-          currentPage: safePage,
-          totalPages: 0,
-          hasNextPage: false,
-          hasPrevPage: false,
-        },
+        success: false,
+        products: [],
+        error: error.message,
       };
     }
+
+    return {
+      success: true,
+      products: products || [],
+      pagination: {
+        totalProducts: 0,
+        currentPage: page,
+        totalPages: 0,
+        hasNextPage: true,
+        hasPrevPage: true,
+      },
+    };
   }
 
-  static async getProductById(id: string) {
-    const product = await prisma.product.findUnique({
-      where: { id },
-    });
-    return product;
+  static async getSingleProductById(id: string) {
+    const { data: product, error } = await supabase
+      .from("Product")
+      .select("*")
+      .eq("id", id)
+      .single();
+
+    if (error) return { success: false, error: error.message, product: null };
+
+    return { success: true, product };
   }
 }
 
