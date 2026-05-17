@@ -4,7 +4,7 @@ import Link from "next/link";
 type ProductCardType = {
   product: {
     id: string;
-    imageUrl: string;
+    imageUrls: string;
     name: string;
     price: any;
     category: string | null;
@@ -17,7 +17,7 @@ export default function ProductCard({ product, index }: ProductCardType) {
     <div className="flex flex-col gap-2 group shadow-sm rounded">
       <div className="relative aspect-square w-full overflow-hidden rounded-lg bg-gray-100">
         <Image
-          src={product.imageUrl}
+          src={product.imageUrls[0] || "/placeholder.png"}
           alt={product.name}
           fill
           sizes="(max-width: 768px) 50vw, 25vw"
