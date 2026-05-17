@@ -10,9 +10,14 @@ type ProductCardType = {
     category: string | null;
   };
   index: number;
+  isPriority?: boolean;
 };
 
-export default function ProductCard({ product, index }: ProductCardType) {
+export default function ProductCard({
+  product,
+  index,
+  isPriority = false,
+}: ProductCardType) {
   return (
     <div className="flex flex-col gap-2 group shadow-sm rounded">
       <div className="relative aspect-square w-full overflow-hidden rounded-lg bg-gray-100">
@@ -20,9 +25,9 @@ export default function ProductCard({ product, index }: ProductCardType) {
           src={product.imageUrls[0] || "/placeholder.png"}
           alt={product.name}
           fill
-          sizes="(max-width: 768px) 50vw, 25vw"
+          sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
           className="object-cover transition-transform group-hover:scale-105"
-          priority={index < 4}
+          priority={isPriority && index < 4}
         />
       </div>
 
@@ -36,9 +41,9 @@ export default function ProductCard({ product, index }: ProductCardType) {
         {/* The Action Button */}
         <Link
           href={`/products/${product.id}`}
-          className="mt-2 w-full py-2 bg-black text-white text-xs text-center rounded-md hover:bg-gray-800 transition-colors"
+          className="mt-2 w-full py-4 bg-black text-white text-xs text-center rounded-md hover:bg-gray-800 transition-colors"
         >
-          View Details
+          View
         </Link>
       </div>
     </div>

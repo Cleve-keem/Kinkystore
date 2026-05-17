@@ -1,8 +1,8 @@
 "use client";
 
+import cloudinaryLoader from "@/libs/cloudinary-loader";
 import Image from "next/image";
 import { useRef, useState } from "react";
-import BackButton from "./BackButton";
 
 type Props = {
   images: string[];
@@ -45,12 +45,13 @@ export default function ProductImageGallery({ images, productName }: Props) {
     <div className="flex flex-col gap-4">
       <div className="relative w-full aspect-square max-h-120 overflow-hidden rounded-2xl bg-gray-50">
         <Image
+          loader={cloudinaryLoader}
           src={images[currentIndex]}
           alt={productName}
           fill
           className="object-cover transition-transform duration-500 ease-in-out"
           priority
-          sizes=""
+          sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
         />
         {/* Mobile Swipe Indicators */}
         <div
@@ -67,13 +68,13 @@ export default function ProductImageGallery({ images, productName }: Props) {
         </div>
         <button
           onClick={prevSlide}
-          className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black/70"
+          className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black/70"
         >
           &lt;
         </button>
         <button
           onClick={nextSlide}
-          className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black/70"
+          className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black/70"
         >
           &gt;
         </button>
@@ -85,7 +86,7 @@ export default function ProductImageGallery({ images, productName }: Props) {
           <button
             key={i}
             onClick={() => setCurrentIndex(i)}
-            className={`relative aspect-square rounded-lg overflow-hidden border-2 transition-all ${currentIndex === i ? "border-black scale-95" : "border-transparent opacity-60 hover:opacity-100"}`}
+            className={`relative aspect-square rounded-lg overflow-hidden border-2 transition-all ${currentIndex === i ? "border-black/40 scale-95" : "border-transparent opacity-60 hover:opacity-100"}`}
           >
             <Image src={url} alt="thumbnail" fill className="object-cover" />
           </button>

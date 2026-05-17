@@ -12,7 +12,7 @@ export default async function ProductDetail({
   const { slug } = await params;
   const { product } = await ProductServices.getSingleProductById(slug);
 
-  if (!product) notFound();
+  if (!product) return <div>Page not found</div>;
 
   const { relatedProducts } = await ProductServices.getRelatedProducts(
     product.category,
@@ -42,7 +42,7 @@ export default async function ProductDetail({
                 {product.name}
               </h1>
               <p className="text-2xl font-medium text-pink-600">
-                ₦{Number(product.price).toLocaleString()}
+                ${Number(product.price).toLocaleString()}
               </p>
             </header>
 

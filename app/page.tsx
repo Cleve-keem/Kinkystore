@@ -3,6 +3,10 @@ import productService from "@/services/products";
 
 export default async function Home() {
   const { products } = await productService.getAllProducts();
+
+  if (products.length < 1)
+    return <div className="text-black font-semibold">Item not available</div>;
+
   return (
     <main className="p-4 bg-white">
       <h3 className="text-black font-semibold mb-4">Latest</h3>
