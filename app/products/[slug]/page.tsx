@@ -12,8 +12,7 @@ export default async function ProductDetail({
   const { product } = await ProductServices.getSingleProductById(slug);
 
   if (!product) notFound();
-  //
-  // Fetch related products (same category)
+
   const { relatedProducts } = await ProductServices.getRelatedProducts(
     product.category,
     product.id,
@@ -54,7 +53,6 @@ export default async function ProductDetail({
                   "Indulge in premium quality. Designed for elegance and comfort."}
               </p>
             </div>
-
             {/* CTAs */}
             <div className="space-y-4">
               <button className="w-full bg-black text-white py-5 rounded-full font-medium hover:bg-gray-900 transition-all active:scale-[0.98]">

@@ -22,7 +22,6 @@ export default function ProductImageGallery({ images, productName }: Props) {
     setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
   };
 
-  // Swipe support
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.changedTouches[0].screenX;
   };
@@ -43,21 +42,25 @@ export default function ProductImageGallery({ images, productName }: Props) {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="relative aspect-4/5 w-full overflow-hidden rounded-2xl bg-gray-50">
+      <div className="relative w-full aspect-square max-h-120 overflow-hidden rounded-2xl bg-gray-50">
         <Image
           src={images[currentIndex]}
           alt={productName}
           fill
           className="object-cover transition-transform duration-500 ease-in-out"
           priority
+          sizes=""
         />
-
         {/* Mobile Swipe Indicators */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 md:hidden">
+        <div
+          className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 md:hidden"
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
           {images.map((_, i) => (
             <div
               key={i}
-              className={`h-1.5 rounded-full transition-all ${currentIndex === i ? "w-6 bg-white" : "w-1.5 bg-white/40"}`}
+              className={`h-1.5 rounded-full transition-all ${currentIndex === i ? "w-6 bg-black" : "w-1.5 bg-black/50"}`}
             />
           ))}
         </div>
@@ -69,7 +72,7 @@ export default function ProductImageGallery({ images, productName }: Props) {
           <button
             key={i}
             onClick={() => setCurrentIndex(i)}
-            className={`relative aspect-square rounded-lg overflow-hidden border-2 transition-all ${currentIndex === i ? "border-pink-500 scale-95" : "border-transparent opacity-60 hover:opacity-100"}`}
+            className={`relative aspect-square rounded-lg overflow-hidden border-2 transition-all ${currentIndex === i ? "border-black scale-95" : "border-transparent opacity-60 hover:opacity-100"}`}
           >
             <Image src={url} alt="thumbnail" fill className="object-cover" />
           </button>
