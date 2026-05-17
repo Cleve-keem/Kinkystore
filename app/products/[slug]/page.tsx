@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import ProductServices from "@/services/products";
 import ProductImageGallery from "@/components/products/ProductImageGallery.tsx";
 import ProductCard from "@/components/products/productCard";
+import BackButton from "@/components/products/BackButton";
 
 export default async function ProductDetail({
   params,
@@ -20,7 +21,8 @@ export default async function ProductDetail({
 
   return (
     <main className="min-h-screen bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-16">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-16">
+        <BackButton />
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:items-start">
           {/* LEFT: The Gallery (Sticky for Desktop) */}
           <div className="lg:col-span-7 lg:sticky lg:top-24">
